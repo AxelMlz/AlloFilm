@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import Root from './views/root';
 import Home from './views/home';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import MovieInfo from './views/movieInfo';
 
 const router = createBrowserRouter([
   {
@@ -13,8 +14,12 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       {
-        path: "/home",
+        path: "/populaire",
         element: <Home />,
+      },
+      {
+        path: "/movieInfo/:movieId",
+        element: <MovieInfo />,
       }
     ],
   },

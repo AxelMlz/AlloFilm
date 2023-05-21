@@ -1,7 +1,11 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import MovieCard from "../components/MovieCard";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import MovieInfo from "./movieInfo";
+
+import { Card, CardHeader, CardBody, CardFooter, Image, Stack, Text, Divider, Button, Heading } from '@chakra-ui/react'
+
 
 function Home() {
 const [movies, setMovies] = useState([]);
@@ -14,7 +18,7 @@ const [poster, setPoster] = useState();
 
     useEffect(() => {
         getData();
-        // setPoster();
+    // setPoster(`https://image.tmdb.org/t/p/w300/${movie.poster_path}`);
         console.log(movies.length);
         console.log(process.env.REACT_APP_API_KEY);
 
@@ -22,21 +26,57 @@ const [poster, setPoster] = useState();
 
     return ( 
         <>
-            {/* return <MovieCard key ={index} /> */}
-            <h1>Film</h1>
-            {/* <a>{movies[0].title}</a> */}
-     
-
+        
+            <Outlet/>
+            <h1 style={{textAlign : "center"}}>Film</h1>
+           
             {movies.map((movie, index) =>{
-                 return <div key={index}>
-                    
-                    {/* <div>{movie.original_title}</div> */}
-                    <Link to={`/movie_info/${index + 1}`}>{movie.original_title}</Link>
-
-                    <img src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`} alt={movie.original_title}/>
-                    <a>{movie.overview}</a>
                 
-                </div>
+                // return <div key={index} >
+                return <Card key = {index}
+      
+        direction={{ base: 'column', sm: 'row' }}
+        overflow='hidden'
+        variant='outline'
+    >
+    <Image
+        objectFit='cover'
+        maxW={{ base: '100%', sm: '200px' }}
+        src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+        alt='${movie.overview}'
+    />
+
+    <Stack>
+        <CardBody>
+        <Heading size='md'>{movie.original_title}</Heading>
+
+        <Text py='2'>
+        {movie.overview}
+        </Text>
+        </CardBody>
+
+        <CardFooter>
+        <Button variant='solid' colorScheme='blue'>
+        <Link to={`/movie_info/${index + 1}`}>More</Link>
+            
+        </Button>
+        </CardFooter>
+    </Stack>
+</Card>
+
+                    
+                    {/* <div>{movie.original_title}</div>
+                    <Link  to={`/movie_info/${movie.original_title}`} >
+                       <h2 style={{display: "flex"}}>
+                        {movie.original_title}
+                       </h2>
+                        </Link>
+                    
+
+                    <img  src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`} alt={movie.original_title}/>
+                    <p>{movie.overview}</p> */}
+                
+                // </div>
             })}
            
         </>

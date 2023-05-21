@@ -1,6 +1,8 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useParams } from "react-router-dom";
+import MovieInfo from "./movieInfo";
 
 export default function Root() {
+  let {movieId} = useParams();
   return (
     <>
       <div id="sidebar">
@@ -9,7 +11,13 @@ export default function Root() {
           <ul>
           
             <li>
-              <Link to={`/home`}>Home</Link>
+              <Link to={`/`}>Home</Link>
+            </li>
+            <li>
+              <Link to={`/populaire`}>Les Films les plus populaires</Link>
+            </li>
+            <li>
+              <Link to={`movie_info/${movieId}`}>Pokemon List</Link>
             </li>
           </ul>
         </nav>
