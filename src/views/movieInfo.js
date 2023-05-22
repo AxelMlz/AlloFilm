@@ -1,47 +1,73 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { Card, CardHeader, CardBody, CardFooter, Image, Stack, Text, Divider, Button, Heading, SimpleGrid } from '@chakra-ui/react'
 
-function MovieInfo() {
+function MovieInfo(movie) {
 
     const [movieInfo, setMovieInfo] = useState(null);
 
-    const{movieId} = useParams
+    let {movieId} = useParams();
 
-    const options = {
-        method: 'GET',
-        url: 'https://api.themoviedb.org/3/search/movie',
-        params: {query: `${movieId}`, include_adult: 'false', language: 'en-US', page: '1'},
-        headers: {
-          accept: 'application/json',
-          Authorization: `${process.env.REACT_APP_AUTH}`
-        }
-      };
-      async function getData(){
-        console.log(options)
-        const res = await axios(options);
-        setMovieInfo(res.data.results[0]);
-      }
+    // const options = {
+    //     method: 'GET',
+    //     url: 'https://api.themoviedb.org/3/search/movie',
+    //     params: {query: `${movieId}`, include_adult: 'false', language: 'en-US', page: '1'},
+    //     headers: {
+    //       accept: 'application/json',
+    //       Authorization: `${process.env.REACT_APP_AUTH}`
+    //     }
+    //   };
+    //   async function getData(){
+    //     console.log(options)
+    //     const res = await axios(options);
+    //     setMovieInfo(res.data.results[0]);
+    //   }
      
-    useEffect(() => {
-        getData();
-        // setPoster();
+    // useEffect(() => {
+    //     getData();
+    //     // setPoster();
 
-      }, []);
+    //   }, []);
 
     return ( 
         <>
-        {movieInfo ? (
+       
         <div>
+        <Card key = {movie.id}
+      
+      direction={{ base: 'column', sm: 'row' }}
+      overflow='hidden'
+      variant='outline'
+  >
+<Link to={`/movie_info/${movie.id}`}>
+  <Image
+      objectFit='cover'
+      maxW={{ base: '100%', sm: '200px' }}
+      src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+      alt={`${movie.original_title}`}
+      />
+      </Link>
 
-            <a>{movieInfo.original_title}</a>
-            <img src={`https://image.tmdb.org/t/p/w300/${movieInfo.poster_path}`} alt={movieInfo.original_title}/>
-            <a>{movieInfo.overview}</a>
-        </div>
-            ): (
-                <h2> ON LOAD</h2>
-                )}
-            </>
+  <Stack>
+      <CardBody>
+
+      {/* <Text py='2'>
+      {movie.overview}
+  </Text> */}
+      </CardBody>
+
+      <CardFooter>
+  <Heading size='md'>{movie.original_title}</Heading>
+      {/* <Button variant='solid' colorScheme='blue'>
+      <Link to={`/movie_info/${index}`}>More</Link>
+      
+      </Button> */}
+      </CardFooter>
+  </Stack>
+</Card>
+</div>
+</>
     );
 }
 

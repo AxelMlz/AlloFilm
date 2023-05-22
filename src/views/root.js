@@ -6,7 +6,7 @@ export default function Root() {
   return (
     <>
       <div id="sidebar">
-        <h1>React Router</h1>
+        <h1>AlloFilm</h1>
         <nav>
           <ul>
           
@@ -17,7 +17,10 @@ export default function Root() {
               <Link to={`/populaire`}>Les Films les plus populaires</Link>
             </li>
             <li>
-              <Link to={`movie_info/${movieId}`}>Pokemon List</Link>
+              <Link to={`/movie_info/${movieId}`}>movie</Link>
+            </li>
+            <li>
+              <Link to={`categories`}>categories</Link>
             </li>
           </ul>
         </nav>
