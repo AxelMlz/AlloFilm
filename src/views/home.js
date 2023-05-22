@@ -1,10 +1,8 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import MovieCard from "../components/MovieCard";
 import { Link, Outlet } from "react-router-dom";
-import MovieInfo from "./movieInfo";
 
-import { Card, CardHeader, CardBody, CardFooter, Image, Stack, Text, Divider, Button, Heading, SimpleGrid } from '@chakra-ui/react'
+import { Card, CardBody, CardFooter, Image, Stack, SimpleGrid } from '@chakra-ui/react';
 
 
 function Home() {
@@ -17,7 +15,6 @@ function Home() {
 
     useEffect(() => {
         getData();
-        // setPoster(`https://image.tmdb.org/t/p/w300/${movie.poster_path}`);
     }, []);
 
     return (
@@ -28,7 +25,6 @@ function Home() {
 
                 {movies.map((movie, index) => {
 
-                    // return <div key={index} >
                     return <Card key={index}
 
                         direction={{ base: 'column', sm: 'row' }}
@@ -47,33 +43,15 @@ function Home() {
                         <Stack>
                             <CardBody>
 
-                                {/* <Text py='2'>
-        {movie.overview}
-    </Text> */}
+
                             </CardBody>
 
                             <CardFooter>
-                                {/* <Button variant='solid' colorScheme='blue'>
-        <Link to={`/movie_info/${index}`}>More</Link>
-        
-        </Button> */}
+
                             </CardFooter>
                         </Stack>
                     </Card>
 
-
-                    {/* <div>{movie.original_title}</div>
-<Link  to={`/movie_info/${movie.original_title}`} >
-<h2 style={{display: "flex"}}>
-{movie.original_title}
-</h2>
-</Link>
-
-
-                    <img  src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`} alt={movie.original_title}/>
-                    <p>{movie.overview}</p> */}
-
-                    // </div>
                 })}
             </SimpleGrid>
 

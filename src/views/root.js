@@ -1,5 +1,4 @@
 import { Outlet, Link, useParams } from "react-router-dom";
-import MovieInfo from "./movieInfo";
 
 export default function Root() {
   let { movieId } = useParams();

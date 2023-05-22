@@ -1,4 +1,3 @@
-import { BrowserRouter, Link, Route } from 'react-router-dom';
 import './App.css';
 import Home from './views/home.js';
 import { ChakraProvider } from '@chakra-ui/react';
