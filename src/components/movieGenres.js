@@ -9,6 +9,8 @@ function MovieGenre() {
     const [categories, setCategories] = useState("");
     // const [categories, setCategories] = useState([]);
     const [movies, setMovies] = useState([]);
+    const [categorieId, setCategorieId] = useState("");
+    
     console.log(categories);
     let categorie = [
         {
@@ -88,8 +90,15 @@ function MovieGenre() {
             "name": "Western"
         }
     ];
+    let num = 15;
+let text = num.toString();
 
-
+    function getId(){
+        setCategorieId(categories.id);
+        console.log(categorieId);
+    };
+    async function getData() {
+        getId();
     const options = {
         params: {
             include_adult: 'false',
@@ -97,7 +106,7 @@ function MovieGenre() {
             language: 'en-US',
             page: '1',
             sort_by: 'popularity.desc',
-            with_genres: { categories }
+            with_genres: { categorieId }
         },
         headers: {
             accept: 'application/json',
@@ -105,7 +114,6 @@ function MovieGenre() {
         }
     };
 
-    async function getData() {
         axios.get(`https://api.themoviedb.org/3/discover/movie`, options)
             .then(response => {
                 setMovies(response.data.results);
@@ -115,25 +123,31 @@ function MovieGenre() {
             .catch(err => {
                 console.error(err);
             });
+            console.log(categorieId);
     }
     useEffect(() => {
-        getData();
+        getId();
+        // getData();
         // getMovies();
         console.log(categories);
-    }, [categories]);
+    }, []);
 
 
     return (
         <>
             <div>
 
-                <Dropdown value={categories} onChange={(e) => setCategories(e.value)} options={categorie} optionLabel="name" showClear editable placeholder="Select a Categorie" className="w-full md:w-14rem" onClick={getData}/>
-
+                <Dropdown value={categories} onChange={(e) => setCategories(e.value)} options={categorie} 
+                optionLabel="name"
+                 showClear placeholder="Select a Categorie" className="w-full md:w-14rem" 
+                //  onClick={getData}
+                 />
+                <button onClick={getData}>Click</button>
             </div>
 
                     <div>
 
-                {movies ? (
+                {categorieId ? (
                     <SimpleGrid columns={4} spacingX='40px' spacingY='20px'>
                     {
                         movies.map((movie, index) => {
